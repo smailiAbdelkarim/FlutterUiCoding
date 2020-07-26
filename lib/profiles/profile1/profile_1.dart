@@ -1,3 +1,6 @@
+import 'dart:ui';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutteruicodiing/profiles/profile1/user.dart';
 import 'provider.dart';
@@ -14,13 +17,21 @@ class _Profile1State extends State<Profile1> {
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-        Image.asset('assets/profiles/1.jpeg',
-           fit: BoxFit.cover,
-           height: MediaQuery.of(context).size.height*0.45,
-           ),
+        Image.asset(
+          'assets/profiles/1.jpeg',
+          fit: BoxFit.cover,
+          height: MediaQuery.of(context).size.height*0.50,
+
+        ),
+
+
         Scaffold(
           backgroundColor: Colors.transparent,
-          appBar: AppBar(title: Text("Portfolio"),
+          appBar: AppBar(title: Text("PORTFOLIO",style: TextStyle(
+            fontWeight: FontWeight.bold,
+            letterSpacing: 1.1
+          ),
+          ),
             centerTitle: true,
             backgroundColor: Colors.transparent,
             elevation: 0,
@@ -37,10 +48,47 @@ class _Profile1State extends State<Profile1> {
 
 
           ),
-          body: Container(),
-        )
+
+        ),
+         CustomPaint(
+           painter: ProfilePainter(),
+           child: Container(
+
+           ),
+         ),
+
+        Positioned(
+          left: MediaQuery.of(context).size.width*0.05,
+          top:MediaQuery.of(context).size.height*0.35,
+          child: CircleAvatar(
+            minRadius: 40,
+            backgroundImage: ExactAssetImage('assets/profiles/mypic.jpg'),
+          ),
+        ),
       ],
 
     );
   }
+}
+
+class ProfilePainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+   Path path = Path();
+   Paint  paint = Paint();
+   paint.color = Colors.white;
+   path.lineTo(0,size.height*0.40);
+   path.lineTo(size.width,size.height*0.50);
+   path.lineTo(size.width,size.height);
+   path.lineTo(0,size.height);
+  //path.lineTo(0,size.height*0.25);
+   canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) {
+  return false;
+  }
+
+
 }
